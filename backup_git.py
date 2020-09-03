@@ -89,12 +89,21 @@ def main():
 
     log.info("Repos able to clone :" + str(repos_cloned) )
     if repos_cloned == 0:
-        log.debug("Nothing to clone, check config please")
+        log.debug("Nothing to zip, check config please")
         exit -1
     
-
+    tmpzipdir=tempfile.mkdtemp()
+    repo_zipfile = 'repo_back'
+    os.chdir(tmpzipdir)
+   
+    if( shutil.make_archive(repo_zipfile, 'zip', tmpd) ):
+        log.info("Zipped repos successfully")
+    else:
+        log.debug ("could not create archive of repos.")
 
     
+    
+
 
 if __name__ == '__main__':
     main()
