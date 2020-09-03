@@ -54,11 +54,11 @@ def check_pat_size(pat):
 
 
 def deltmp(tmpd):
-    for root, dirs, files in os.walk(tmpd):
-        for file in files:
-            print(os.path.join(root, file))
-            os.remove(os.path.join(root, file))
-
+    log.info(tmpd)
+    if not tmpd:
+        log.info("Deleting " + tmpd)
+        shutil.rmtree(path, ignore_errors=False, onerror=None
+    
 
 
 def clone_repos(user,pat,rl,tmpd):
