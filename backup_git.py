@@ -1,5 +1,3 @@
-"""------------  script to backup git repos to azure blob storage ----"""
-
 import os
 import logging as log
 import argparse as argp 
@@ -57,9 +55,8 @@ def deltmp(tmpd):
     log.info(tmpd)
     if not tmpd:
         log.info("Deleting " + tmpd)
-        shutil.rmtree(path, ignore_errors=False, onerror=None
+        shutil.rmtree(path, ignore_errors=False, onerror=None)
     
-
 
 def clone_repos(user,pat,rl,tmpd):
     """ Clones the repos to a tmp folder.  """
