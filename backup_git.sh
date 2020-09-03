@@ -1,7 +1,7 @@
 #! /bin/bash
 
 
-# Add name of the repos. Could be read from a file also
+repo_names=
 
 base_path="/home/sandeep/work"
 git_repos_path="${base_path}/code"
