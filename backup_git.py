@@ -1,4 +1,4 @@
-#------------  script to backup git repos to azure blob storage ----#
+"""------------  script to backup git repos to azure blob storage ----"""
 
 import os
 import logging as log
