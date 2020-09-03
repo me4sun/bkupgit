@@ -33,6 +33,4 @@ echo "Calling the script to upload the target file to Blob STorage"
  
 source $uploadscript $filename
 
-
-
 [[ "$?" -ne 0 ]] && echo "Could not upload the backup file, Please check log" && exit 1
