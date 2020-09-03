@@ -1,20 +1,15 @@
-#------------  script to backup git repos ----#
+#------------  script to backup git repos to azure blob storage ----#
 
 import os
-import zipfile  as zf 
 import logging as log
 import argparse as argp 
 import time
-import urllib
 import shutil
 import tempfile 
 import subprocess
+from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
 
 
-class gitclone:
-
-    def clone(self,gitrepo):
-        pass
 
 
 def parse_args():
@@ -29,6 +24,27 @@ def parse_args():
     return args
 
 
+def upload_blob(zipfile,container_name="gitbackups"):
+    
+    #connect_str = os.getenv('AZURE_STORAGE_CONNECTION_STRING')
+    AZURE_STORAGE_CONNECTION_STRING="DefaultEndpointsProtocol=https;AccountName=sreinterview;AccountKey=bnmZgOQwke+9xQ1Txq2H0bU8aHQM6A6PjWRtWXWpams9n0p3UyyBhVuCOQEQgubPmp81EzyMkJ4pUew4tdWi3A==;EndpointSuffix=core.windows.net"
+    connect_str = AZURE_STORAGE_CONNECTION_STRING
+
+    blob_service_client = BlobServiceClient.from_connection_string(connect_str)
+    
+    try:
+        print("Azure Blob storage v12 - Python quickstart sample")
+        blob_client = blob_service_client.get_blob_client(container=container_name, blob=zipfile)
+        log.info("\nUploading to Azure Storage as blob:\n\t" + zipfile)
+
+        with open(zipfile, "rb") as data:
+            blob_client.upload_blob(data)
+    except Exception as ex:
+        print('Exception:')
+        print(ex)
+        
+        
+
 
 def check_pat_size(pat):
     """ Size of PAT should be 40 chars"""    
@@ -38,9 +54,6 @@ def check_pat_size(pat):
         exit()
     else:
         return 1
-
-def mkzip(tmpd):
-    pass
 
 
 def deltmp(tmpd):
@@ -101,8 +114,10 @@ def main():
     else:
         log.debug ("could not create archive of repos.")
 
+    zipfilename=os.path.abspath(repo_zipfile+".zip")
+    log.info("uploading the file " + zipfilename)
     
-    
+    #upload_blob()
 
 
 if __name__ == '__main__':
