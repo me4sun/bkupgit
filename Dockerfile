@@ -1,9 +1,9 @@
-FROM ubuntu 
-RUN mkdir -p /backup
-ADD /home/sandeep/work/git_backups    /backup
-ADD /home/sandeep/work/git_backups/git-repo-backup.2020-09-02-16-39.tgz    /backup
+FROM alpine 
 
-RUN  tar -zvf /backup/git-repo-backup.2020-09-02-16-39.tgz -C /backup  
-RUN  find /backup -name 'README' -exec cat {} \;
+COPY repo_back-Fri-04-Sep-2020-04-30-09.zip ./
 
+RUN  unzip -qq ./repo_back-Fri-04-Sep-2020-04-30-09.zip
+
+RUN  find ./HelloWorld  -iname 'README*' -exec cat {} \;
+RUN  find ./GoodbyeWorld -iname 'README*' -exec cat {} \;
 
